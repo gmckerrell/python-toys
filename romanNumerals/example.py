@@ -1,5 +1,5 @@
 """
- This is an example program which uses the roman2 module.
+ This is an example program which uses the roman module.
 """
 # python 2 compatability
 try:
