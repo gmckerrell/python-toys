@@ -1,5 +1,6 @@
+# [roman.py](roman.py)
 A module to enable the conversion of decimal to/from roman numerals.
-### Module usage
+## Usage
 ```
  $ python
  >>> import roman
@@ -9,7 +10,7 @@ A module to enable the conversion of decimal to/from roman numerals.
  "MMLXIII"
  >>>
 ```
-### [example.py](example.py)
+## [example.py](example.py)
 ```
 $ python example.py
 Enter space separated values to convert to/from roman numerals.
