@@ -11,7 +11,7 @@ A module to enable the conversion of decimal to/from roman numerals.
 ```
 ### Example application
 ```
-$ python example.py
+$ python [example.py](example.py)
 Enter space separated values to convert to/from roman numerals.
 'q' to quit
 
