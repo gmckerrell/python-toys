@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 days=[
   ["first", "a partridge in a pear tree"],
   ["second", "two turtle doves"],
