@@ -21,5 +21,12 @@ Decimals and/or numerals to convert: 1234
 Decimals and/or numerals to convert: MCC
 MCC --> 1200
 
+Decimals and/or numerals to convert: 12 MCI
+12 --> XII
+MCI --> 1101
+
+Decimals and/or numerals to convert: MCGI
+*** unrecognised numeral MC[GI]
+
 Decimals and/or numerals to convert: q
 ```
