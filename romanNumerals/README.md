@@ -9,9 +9,9 @@ A module to enable the conversion of decimal to/from roman numerals.
  "MMLXIII"
  >>>
 ```
-### Example application
-`$ python` [`example.py`](example.py)
+### [example.py](example.py)
 ```
+$ python example.py
 Enter space separated values to convert to/from roman numerals.
 'q' to quit
 
