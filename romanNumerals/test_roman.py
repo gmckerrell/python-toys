@@ -1,4 +1,5 @@
-import 
+import pytest
+
 @pytest.mark.parametrize(
     "single_numeral, expected", 
     [
