@@ -140,7 +140,7 @@ class Numeral(int):
         return Numeral(int(self) + value)
         
     def __sub__(self, value):
-        return Numeral(iny(self),
+        return Numeral(int(self) - value)
 
 #----------------------------------------
 # UNITTESTS
