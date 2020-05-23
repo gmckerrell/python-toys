@@ -72,6 +72,7 @@ def asDecimal(string):
         - when invalid increasing numeral value
         - when invalid repetition of numerals
     """
+    print("asDecimal(%s)"%value)
     numerals = []
     values = []
     while(string):
