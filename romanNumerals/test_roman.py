@@ -1,10 +1,5 @@
-import unittest
-
-    #----------------------------------------
-    class TestAsDecimal(unittest.TestCase):
-        #------------------------------------
-        def _checkGoodValue(self, value, expected):
-            self.assertEqual(asDecimal(value), expected)
+def _checkGoodValue(value, expected):
+    assert asDecimal(value) == expected
         #------------------------------------
         def _checkBadValue(self, value, expected):
             # check that this exception is raised
@@ -12,29 +7,29 @@ import unittest
                 asDecimal(value)
             # now check the details held in the exception
             self.assertEqual(context.exception.args, ValueError(expected).args)
-        #------------------------------------
-        def test_single_digits(self):
-            self._checkGoodValue('I',     1)
-            self._checkGoodValue('II',    2)
-            self._checkGoodValue('III',   3)
-            self._checkGoodValue('IV',    4)
-            self._checkGoodValue('V',     5)
-            self._checkGoodValue('IX',    9)
-            self._checkGoodValue('X',    10)
-            self._checkGoodValue('XX',   20)
-            self._checkGoodValue('XXX',  30)
-            self._checkGoodValue('XL',   40)
-            self._checkGoodValue('L',    50)
-            self._checkGoodValue('XC',   90)
-            self._checkGoodValue('C',   100)
-            self._checkGoodValue('CC',  200)
-            self._checkGoodValue('CCC', 300)
-            self._checkGoodValue('CD',  400)
-            self._checkGoodValue('D',   500)
-            self._checkGoodValue('CM',  900)
-            self._checkGoodValue('M',  1000)
-        #------------------------------------
-        def test_multiple_digits(self):
+        
+def test_single_digits():
+    assert asDecimal('I') == 1
+    ('II',    2)
+    ('III',   3)
+    ('IV',    4)
+    ('V',     5)
+    ('IX',    9)
+    ('X',    10)
+    ('XX',   20)
+    ('XXX',  30)
+    ('XL',   40)
+    ('L',    50)
+    ('XC',   90)
+    ('C',   100)
+    ('CC',  200)
+    ('CCC', 300)
+    ('CD',  400)
+    ('D',   500)
+    ('CM',  900)
+    ('M',  1000)
+
+def test_multiple_digits(self):
             self._checkGoodValue('XI',           11)
             self._checkGoodValue('XVI',          16)
             self._checkGoodValue('XXVI',         26)
@@ -43,15 +38,15 @@ import unittest
             self._checkGoodValue('DCLXXXVI',    686)
             self._checkGoodValue('MMDCLXXXVI', 2686)
         #------------------------------------
-        def test_valid_repeating_digits(self):
+def test_valid_repeating_digits(self):
             self._checkGoodValue('MMMDCCIII', 3703)
         #------------------------------------
-        def test_bad_digits(self):
+def test_bad_digits(self):
             self._checkBadValue('xI',  'unrecognised numeral [xI]')
             self._checkBadValue('IIx', 'unrecognised numeral II[x]')
             self._checkBadValue('IiV', 'unrecognised numeral I[iV]')
         #------------------------------------
-        def test_bad_increasing_value(self):
+def test_bad_increasing_value(self):
             self._checkBadValue('IL',   'increasing value I[L]')
             self._checkBadValue('IC',   'increasing value I[C]')
             self._checkBadValue('ID',   'increasing value I[D]')
@@ -62,7 +57,7 @@ import unittest
             self._checkBadValue('VD',   'increasing value V[D]')
             self._checkBadValue('VMCC', 'increasing value V[M]CC')
         #------------------------------------
-        def test_bad_repeating_values(self):
+def test_bad_repeating_values(self):
             self._checkBadValue('IIII',   'bad repetition III[I]')
             self._checkBadValue('CVVII',  'bad repetition CV[V]II')
             self._checkBadValue('CLLII',  'bad repetition CL[L]II')
