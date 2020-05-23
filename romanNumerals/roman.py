@@ -123,6 +123,25 @@ def asNumerals(value):
                 value -= v
                 break
     return "".join(numerals)
+
+class Numeral(int):
+    def __call__(value):
+        return int.new(
+            Numeral,
+            asDecimal(value)
+        )
+    def __repr__(self):
+        return object.__repr__(self)
+
+    def __str__(self):
+        return asNumeral(self)
+        
+    def __add__(self, value):
+        return Numeral(int(self) + value)
+        
+    def __sub__(self, value):
+        return Numeral(iny(self),
+
 #----------------------------------------
 # UNITTESTS
 #----------------------------------------
