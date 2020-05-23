@@ -134,7 +134,7 @@ class Numeral(int):
         return object.__repr__(self)
 
     def __str__(self):
-        return asNumeral(self)
+        return asNumerals(self)
         
     def __add__(self, value):
         return Numeral(int(self) + value)
