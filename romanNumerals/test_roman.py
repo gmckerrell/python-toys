@@ -1,7 +1,8 @@
-
+import 
 @pytest.mark.parametrize(
-    "numeral, expected", 
+    "single_numeral, expected", 
     [
+    ('I',.    1)
     ('II',    2),
     ('III',   3),
     ('IV',    4),
