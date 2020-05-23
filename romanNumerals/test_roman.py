@@ -1,4 +1,5 @@
 import pytest
+import roman
 
 @pytest.mark.parametrize(
     "single_numeral, expected", 
@@ -26,4 +27,4 @@ import pytest
 )
 
 def test_single_numeral(single_numeral, expected):
-    assert Numeral(single_numeral) == expected
+    assert roman.Numeral(single_numeral) == expected
