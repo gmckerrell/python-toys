@@ -127,11 +127,13 @@ def asNumerals(value):
     return "".join(numerals)
 
 class Numeral(int):
-    def __call__(value):
-        return int.new(
-            Numeral,
+    def __new__(clazz, value):
+        print("hello")
+        return int.__new__(
+            clazz,
             asDecimal(value)
         )
+
     def __repr__(self):
         return object.__repr__(self)
 
