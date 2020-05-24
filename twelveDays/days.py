@@ -16,16 +16,18 @@ days = [
 ]
 
 def printDays(day):
-  for d in range(day, -1, -1):
-    if (day > 0 and d == 0):
-      print("and", end=' ')
-    print(days[d][1])
+
+    for d in range(day, -1, -1):
+        if (day > 0 and d == 0):
+            print("and", end=' ')
+        print(days[d][1])
 
 def printVerse(day):
-  print("On the %s day of christmas"%days[day][0])
-  print("My true love gave to me")
-  printDays(day)
+
+    print("On the %s day of christmas"%days[day][0])
+    print("My true love gave to me")
+    printDays(day)
   
 for d in range(0, 12):
-  printVerse(d)
-  print()
+    printVerse(d)
+    print()
