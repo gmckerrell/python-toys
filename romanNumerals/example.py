@@ -6,7 +6,8 @@ try:
     input = raw_input
 except NameError:
     pass
-#----------------------------------------
+
+
 def isDecimal(value):
     """
     Determine whether a string can be converted into a decimal integer or not.
@@ -22,7 +23,8 @@ def isDecimal(value):
         return True
     except ValueError:
         return False
-#----------------------------------------
+
+
 def main():
     import roman
 
@@ -38,8 +40,9 @@ def main():
                     )
                 else:
                     result = roman.asDecimal(value)
-                print("%s --> %s"%(value, result))
+                print("%s --> %s" % (value, result))
             except ValueError as error:
-                print("*** %s"%(error))
-#----------------------------------------
+                print("*** %s" % (error))
+
+
 main()
