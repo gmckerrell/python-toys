@@ -1,18 +1,18 @@
 from __future__ import print_function
 
-days=[
-  ["first", "a partridge in a pear tree"],
-  ["second", "two turtle doves"],
-  ["third", "three french hens"],
-  ["forth", "four calling birds"],
-  ["fifth", "FIVE GOLD RINGS"],
-  ["sixth", "six geese a laying"],
-  ["seventh", "seven swans a swimming"],
-  ["eighth", "eight maids a milking"],
-  ["ninth", "nine ladies dancing"],
-  ["tenth", "ten lords a leaping"],
-  ["eleventh", "eleven pipers piping"],
-  ["twelth", "twelve drummers drumming"]
+days = [
+    ["first", "a partridge in a pear tree"],
+    ["second", "two turtle doves"],
+    ["third", "three french hens"],
+    ["forth", "four calling birds"],
+    ["fifth", "FIVE GOLD RINGS"],
+    ["sixth", "six geese a laying"],
+    ["seventh", "seven swans a swimming"],
+    ["eighth", "eight maids a milking"],
+    ["ninth", "nine ladies dancing"],
+    ["tenth", "ten lords a leaping"],
+    ["eleventh", "eleven pipers piping"],
+    ["twelth", "twelve drummers drumming"]
 ]
 
 def printDays(day):
