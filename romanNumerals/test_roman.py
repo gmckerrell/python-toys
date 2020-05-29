@@ -30,3 +30,21 @@ import roman
 
 def test_single_numeral(single_numeral, expected):
     assert roman.Numeral(single_numeral) == expected
+
+
+@pytest.mark.parametrize(
+    "multiple_numerals, expected", 
+    [
+        ('I',     1),
+        ('II',    2),
+        ('III',   3),
+        ('IV',    4),
+        ('V',     5),
+        ('IX',    9),
+    ]
+)
+
+
+def test_multiple_numerals(multiple_numerals, expected):
+    assert roman.Numeral(multiple_numerals) == expected
+
