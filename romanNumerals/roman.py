@@ -47,6 +47,7 @@ _VALUES_ORDERED_BY_SIZE = sorted(
     reverse=True
 )
 
+
 def _getNumeral(string):
     for numeral in _NUMERALS_ORDERED_BY_STRING_LENGTH:
         if string.startswith(numeral):
@@ -118,7 +119,7 @@ def asNumerals(value):
     """
     if value < 1:
         raise ValueError("out of range %d" % (value))
-    numerals=[]
+    numerals = []
     while(value):
         for (numeral, v) in _VALUES_ORDERED_BY_SIZE:
             if v <= value:
