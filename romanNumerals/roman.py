@@ -34,19 +34,19 @@ _VALUES = {
     'CM':  900,
     'M':  1000,
 }
-#----------------------------------------
+
 _NUMERALS_ORDERED_BY_STRING_LENGTH = sorted(
     _VALUES.keys(), 
     key      = lambda k: len(k),
     reverse  = True
 )
-#----------------------------------------
+
 _VALUES_ORDERED_BY_SIZE = sorted(
     _VALUES.items(),
     key     = lambda item: item[1],
     reverse = True
 )
-#----------------------------------------
+
 def _getNumeral(string):
     for numeral in _NUMERALS_ORDERED_BY_STRING_LENGTH:
         if string.startswith(numeral):
@@ -56,7 +56,7 @@ def _getNumeral(string):
 
     # didn't match a roman numeral!
     raise ValueError()
-#----------------------------------------
+
 def asDecimal(string):
     """
     Convert a set of roman numerals into a decimal integer.
@@ -101,7 +101,7 @@ def asDecimal(string):
         numerals.append(numeral)
 
     return sum(values)
-#---------------------------------------- 
+
 def asNumerals(value):
     """
     Convert an integer into a set of roman numerals.
