@@ -36,7 +36,7 @@ _VALUES = {
 }
 
 _NUMERALS_ORDERED_BY_STRING_LENGTH = sorted(
-    _VALUES.keys(), 
+    _VALUES.keys(),
     key=lambda k: len(k),
     reverse=True
 )
@@ -57,6 +57,7 @@ def _getNumeral(string):
     # didn't match a roman numeral!
     raise ValueError()
 
+
 def asDecimal(string):
     """
     Convert a set of roman numerals into a decimal integer.
@@ -71,7 +72,7 @@ def asDecimal(string):
         - when invalid increasing numeral value
         - when invalid repetition of numerals
     """
-    print("asDecimal(%s)"%string)
+    print("asDecimal(%s)" % string)
 
     numerals = []
     values = []
@@ -80,27 +81,28 @@ def asDecimal(string):
             # split off the next roman digit
             (numeral, string) = _getNumeral(string)
         except ValueError:
-            raise ValueError("unrecognised numeral %s[%s]"%(''.join(numerals), string))
+            raise ValueError("unrecognised numeral %s[%s]" % (''.join(numerals), string))
 
         # get the decimal value of this numeral
         value = _VALUES[numeral]
 
         # get the context in case of errors
-        context = "%s[%s]%s"%("".join(numerals), numeral, string)
+        context = "%s[%s]%s" % ("".join(numerals), numeral, string)
 
         # cannot have a value greater than the previous one
         if (values and (value > values[-1])):
-            raise ValueError("increasing value %s"%(context))
+            raise ValueError("increasing value %s" % (context))
 
         # cannot start the next numeral with the last
         # character of the previous numeral unless it is 'M'
         if (numerals and numeral != 'M' and (numeral[0] == numerals[-1][-1])):
-            raise ValueError("bad repetition %s"%(context))
+            raise ValueError("bad repetition %s" % (context))
 
         values.append(value)
         numerals.append(numeral)
 
     return sum(values)
+
 
 def asNumerals(value):
     """
@@ -115,7 +117,7 @@ def asNumerals(value):
         - when value is out of range
     """
     if value < 1:
-        raise ValueError("out of range %d"%(value))
+        raise ValueError("out of range %d" % (value))
     numerals=[]
     while(value):
         for (numeral, v) in _VALUES_ORDERED_BY_SIZE:
