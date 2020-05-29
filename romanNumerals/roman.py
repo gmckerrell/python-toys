@@ -141,10 +141,10 @@ class Numeral(int):
 
     def __str__(self):
         return asNumerals(self)
-        
+
     def __add__(self, value):
         return Numeral(int(self) + value)
-        
+
     def __sub__(self, value):
         return Numeral(int(self) - value)
 
