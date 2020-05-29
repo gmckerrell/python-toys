@@ -37,13 +37,13 @@ _VALUES = {
 
 _NUMERALS_ORDERED_BY_STRING_LENGTH = sorted(
     _VALUES.keys(), 
-    key      = lambda k: len(k),
-    reverse  = True
+    key = lambda k: len(k),
+    reverse = True
 )
 
 _VALUES_ORDERED_BY_SIZE = sorted(
     _VALUES.items(),
-    key     = lambda item: item[1],
+    key = lambda item: item[1],
     reverse = True
 )
 
