@@ -128,6 +128,7 @@ def asNumerals(value):
                 break
     return "".join(numerals)
 
+
 class Numeral(int):
     def __new__(clazz, value):
         print("hello")
