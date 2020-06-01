@@ -95,6 +95,7 @@ def test_bad_repetition(bad_repetition, expected):
         ('VD',   'increasing value V[D]'),
         ('VMCC', 'increasing value V[M]CC'),
         ('IL',   'increasing value I[L]')
+    ]
 )
 
      
