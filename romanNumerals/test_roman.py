@@ -41,7 +41,7 @@ import roman
     ]
 )
 def test_good_value(good_value, expected):
-    assert roman.Numeral(good_value) == expected
+    assert roman.Numeral(good_value) == roman.Numeral(expected)
 
 
 @pytest.mark.parametrize(
@@ -76,8 +76,9 @@ def test_bad_value(bad_value, expected):
         roman.Numeral(bad_value)
     assert str(err.value) == expected
 
+    
 def test_to_two_thousand():
-    for i in range(1,2001):
+    for i in range(1, 2001):
         assert roman.Numeral(
             str(
                 roman.Numeral(i)
