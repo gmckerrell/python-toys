@@ -135,11 +135,14 @@ class Numeral(int):
             value = asDecimal(value)
         return int.__new__(clazz, value)
 
+    def __init__(self, value):
+        self.__numerals = asNumerals(value)
+      
     def __repr__(self):
         return object.__repr__(self)
 
     def __str__(self):
-        return asNumerals(self)
+        return self.__numerals;
 
     def __add__(self, value):
         return Numeral(int(self) + value)
