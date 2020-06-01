@@ -137,16 +137,16 @@ class Numeral:
         else:
             self.__value = value
             self.__numerals = asNumerals(value)
-      
+
     def __repr__(self):
         return object.__repr__(self)
 
     def __str__(self):
-        return self.__numerals;
+        return self.__numerals
 
     def __int__(self):
-        return self.__value;
-    
+        return self.__value
+
     def __eq__(self, other):
         if isinstance(other, Numeral):
             return self.__value == other.__value
