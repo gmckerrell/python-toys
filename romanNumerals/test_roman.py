@@ -34,7 +34,7 @@ import roman
         ('DCLXXXVI',    686),
         ('MMDCLXXXVI', 2686),
         # repeating digits
-        ('MMMDCCIII'), 3703),
+        ('MMMDCCIII', 3703),
     ]
 )
 
