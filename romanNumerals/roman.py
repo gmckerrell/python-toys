@@ -129,14 +129,14 @@ def asNumerals(value):
     return "".join(numerals)
 
 
-class Numeral(int):
-    def __new__(clazz, value):
-        if isinstance(value, str):
-            value = asDecimal(value)
-        return int.__new__(clazz, value)
-
+class Numeral:
     def __init__(self, value):
-        self.__numerals = asNumerals(self)
+        if isinstance(value, str):
+            self.__value = asDecimal(value)
+            self.__numerals = value
+        else:
+            self.__value = value
+            self.__numerals = asNumerals(value)
       
     def __repr__(self):
         return object.__repr__(self)
@@ -144,8 +144,10 @@ class Numeral(int):
     def __str__(self):
         return self.__numerals;
 
-    def __add__(self, value):
-        return Numeral(int(self) + value)
-
-    def __sub__(self, value):
-        return Numeral(int(self) - value)
+    def __int__(self):
+        return self.__value;
+    
+    def __eq__(self, other):
+        if isinstance(other, Number):
+            return self.__value == other.__value
+        return False
