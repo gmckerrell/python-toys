@@ -77,8 +77,7 @@ def test_bad_value(bad_value, expected):
     assert str(err.value) == expected
 
 def test_to_two_thousand():
-    for n in range(1,2001):
-        numerals = str(roman.Numeral(i))
+    for i in range(1,2001):
         assert roman.Numeral(
             str(
                 roman.Numeral(i)
