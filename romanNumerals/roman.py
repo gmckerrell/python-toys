@@ -136,7 +136,7 @@ class Numeral(int):
         return int.__new__(clazz, value)
 
     def __init__(self, value):
-        self.__numerals = asNumerals(value)
+        self.__numerals = asNumerals(self)
       
     def __repr__(self):
         return object.__repr__(self)
