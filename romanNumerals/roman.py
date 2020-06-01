@@ -1,6 +1,6 @@
 """
  This module provides the means to convert
- between roman numerala and decimal.
+ between roman numerals and decimal.
 
  EXAMPLE USAGE:
 
@@ -131,11 +131,9 @@ def asNumerals(value):
 
 class Numeral(int):
     def __new__(clazz, value):
-        print("hello")
-        return int.__new__(
-            clazz,
-            isinstance(value, str) ? asDecimal(value) : value
-        )
+        if isinstance(value, str):
+            value = asDecimal(value)
+        return int.__new__(clazz, value)
 
     def __repr__(self):
         return object.__repr__(self)
