@@ -80,4 +80,4 @@ def test_repeating_digits():
 def test_bad_value(bad_value, expected):
     with pytest.raises(ValueError) as err:
         roman.Numeral(bad_value)
-    assert err.value == expected
+    assert str(err.value) == expected
