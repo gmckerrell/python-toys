@@ -50,42 +50,20 @@ def test_multiple_numerals(multiple_numerals, expected):
     assert roman.Numeral(multiple_numerals) == expected
 
 
+def test_repeating_digits():
+    assert roman.Numeral('MMMDCCIII') == 3703
+
+    
 @pytest.mark.parametrize(
-    "unrecognised_numeral, expected", 
+    "bad_value, expected", 
     [
         ('xI',  'unrecognised numeral [xI]'),
         ('IIx', 'unrecognised numeral II[x]'),
-        ('IiV', 'unrecognised numeral I[iV]')
-    ]
-)
-    
-
-def test_unrecognised_numeral(unrecognised_numeral, expected):
-    assert roman.Numeral(unrecognised_numeral) == expected
-
-    
-def test_repeating_digits():
-    assert roman.Numeral('MMMDCCIII') == 3703
-    
-
-@pytest.mark.parametrize(
-    "bad_repetition, expected", 
-    [
+        ('IiV', 'unrecognised numeral I[iV]'),
         ('IIII',   'bad repetition III[I]'),
         ('CVVII',  'bad repetition CV[V]II'),
         ('CLLII',  'bad repetition CL[L]II'),
-        ('MDDII',  'bad repetition MD[D]II')
-    ]
-)
-
-
-def test_bad_repetition(bad_repetition, expected):
-    assert roman.Numeral(bad_repetition) == expected
-    
-
-@pytest.mark.parametrize(
-    "bad_increasing_value, expected", 
-    [
+        ('MDDII',  'bad repetition MD[D]II'),
         ('IC',   'increasing value I[C]'),
         ('ID',   'increasing value I[D]'),
         ('IM',   'increasing value I[M]'),
@@ -97,7 +75,9 @@ def test_bad_repetition(bad_repetition, expected):
         ('IL',   'increasing value I[L]')
     ]
 )
+    
 
-     
-def test_bad_increasing_value(bad_increasing_value, expected):
-    assert roman.Numeral(bad_increasing_value) == expected
+def test_bad_value(bad_value, expected):
+    with pytest.raises(ValueError) as err:
+        roman.Numeral(bad_value)
+    assert err.value == expected
