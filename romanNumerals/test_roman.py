@@ -3,8 +3,9 @@ import roman
 
 
 @pytest.mark.parametrize(
-    "single_numeral, expected", 
+    "good_numeral, expected", 
     [
+        # single numerals
         ('I',     1),
         ('II',    2),
         ('III',   3),
@@ -24,38 +25,26 @@ import roman
         ('D',   500),
         ('CM',  900),
         ('M',  1000),
-    ]
-)
-
-
-def test_single_numeral(single_numeral, expected):
-    assert roman.Numeral(single_numeral) == expected
-
-
-@pytest.mark.parametrize(
-    "multiple_numerals, expected", 
-    [
+        # multiple numerals
         ('XI',           11),
         ('XVI',          16),
         ('XXVI',         26),
         ('LXXXVI',       86),
         ('CCLXXXVI',    286),
         ('DCLXXXVI',    686),
-        ('MMDCLXXXVI', 2686)
+        ('MMDCLXXXVI', 2686),
+        # repeating digits
+        ('MMMDCCIII'), 3703),
     ]
 )
 
 
-def test_multiple_numerals(multiple_numerals, expected):
-    assert roman.Numeral(multiple_numerals) == expected
+def test_good_numeral(good_numeral, expected):
+    assert roman.Numeral(good_numeral) == expected
 
 
-def test_repeating_digits():
-    assert roman.Numeral('MMMDCCIII') == 3703
-
-    
 @pytest.mark.parametrize(
-    "bad_value, expected", 
+    "bad_numeral, expected", 
     [
         ('xI',  'unrecognised numeral [xI]'),
         ('IIx', 'unrecognised numeral II[x]'),
@@ -72,12 +61,12 @@ def test_repeating_digits():
         ('VCVI', 'increasing value V[C]VI'),
         ('VD',   'increasing value V[D]'),
         ('VMCC', 'increasing value V[M]CC'),
-        ('IL',   'increasing value I[L]')
+        ('IL',   'increasing value I[L]'),
     ]
 )
     
 
-def test_bad_value(bad_value, expected):
+def test_bad_numeral(bad_numeral, expected):
     with pytest.raises(ValueError) as err:
-        roman.Numeral(bad_value)
+        roman.Numeral(bad_numeral)
     assert str(err.value) == expected
