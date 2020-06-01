@@ -75,3 +75,12 @@ def test_bad_value(bad_value, expected):
     with pytest.raises(ValueError) as err:
         roman.Numeral(bad_value)
     assert str(err.value) == expected
+
+def test_to_two_thousand():
+    for n in range(1,2001):
+        numerals = str(roman.Numeral(i))
+        assert roman.Numeral(
+            str(
+                roman.Numeral(i)
+            )
+        ) == i
