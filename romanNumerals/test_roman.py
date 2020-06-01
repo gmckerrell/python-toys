@@ -3,7 +3,7 @@ import roman
 
 
 @pytest.mark.parametrize(
-    "good_numeral, expected",
+    "good_value, expected",
     [
         # single numerals
         ('I',     1),
@@ -35,22 +35,28 @@ import roman
         ('MMDCLXXXVI', 2686),
         # repeating digits
         ('MMMDCCIII', 3703),
+        # from decimal value
+        (1971, 'MCMLXXI'),
+        (1998, 'MCMXCVIII'),
     ]
 )
-def test_good_numeral(good_numeral, expected):
-    assert roman.Numeral(good_numeral) == expected
+def test_good_value(good_value, expected):
+    assert roman.Numeral(good_value) == expected
 
 
 @pytest.mark.parametrize(
-    "bad_numeral, expected", 
+    "bad_value, expected",
     [
+        # unrecognised numerals
         ('xI',  'unrecognised numeral [xI]'),
         ('IIx', 'unrecognised numeral II[x]'),
         ('IiV', 'unrecognised numeral I[iV]'),
+        # bad repetition of numerals
         ('IIII',   'bad repetition III[I]'),
         ('CVVII',  'bad repetition CV[V]II'),
         ('CLLII',  'bad repetition CL[L]II'),
         ('MDDII',  'bad repetition MD[D]II'),
+        # increasing numeral values
         ('IC',   'increasing value I[C]'),
         ('ID',   'increasing value I[D]'),
         ('IM',   'increasing value I[M]'),
@@ -60,9 +66,12 @@ def test_good_numeral(good_numeral, expected):
         ('VD',   'increasing value V[D]'),
         ('VMCC', 'increasing value V[M]CC'),
         ('IL',   'increasing value I[L]'),
+        # out of range decimal values
+        (-1, 'out of range -1'),
+        (0,  'out of range 0'),
     ]
 )
-def test_bad_numeral(bad_numeral, expected):
+def test_bad_value(bad_value, expected):
     with pytest.raises(ValueError) as err:
-        roman.Numeral(bad_numeral)
+        roman.Numeral(bad_value)
     assert str(err.value) == expected
