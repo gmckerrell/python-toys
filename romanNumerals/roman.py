@@ -134,7 +134,7 @@ class Numeral(int):
         print("hello")
         return int.__new__(
             clazz,
-            asDecimal(value)
+            isinstance(value, str) ? asDecimal(value) : value
         )
 
     def __repr__(self):
@@ -148,42 +148,3 @@ class Numeral(int):
 
     def __sub__(self, value):
         return Numeral(int(self) - value)
-
-#----------------------------------------
-# UNITTESTS
-#----------------------------------------
-if __name__ == '__main__':
-    import unittest
-
-     #----------------------------------------
-    class TestAsNumerals(unittest.TestCase):
-        #------------------------------------
-        def _checkGoodValue(self, value, expected):
-            self.assertEqual(asNumerals(value), expected)
-        #------------------------------------
-        def _checkBadValue(self, value, expected):
-            # check that this exception is raised
-            with self.assertRaises(ValueError) as context:
-                asNumerals(value)
-            # now check the details held in the exception
-            self.assertEqual(context.exception.args, ValueError(expected).args)
-        #------------------------------------
-        def test_good_values(self):
-                self._checkGoodValue(1971, "MCMLXXI")
-                self._checkGoodValue(1998, "MCMXCVIII")
-        #------------------------------------
-        def test_out_of_range(self):
-                self._checkBadValue(-1, "out of range -1")
-                self._checkBadValue(0,  "out of range 0")
-        #------------------------------------
-        def test_to_two_thousand(self):
-            print()
-            for i in range(1,2001):
-                n = asNumerals(i)
-                self.assertEqual(
-                    asDecimal(n),
-                    i
-                )
-        #------------------------------------
-    unittest.main()
-#----------------------------------------
