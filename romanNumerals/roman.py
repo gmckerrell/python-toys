@@ -148,6 +148,6 @@ class Numeral:
         return self.__value;
     
     def __eq__(self, other):
-        if isinstance(other, Number):
+        if isinstance(other, Numeral):
             return self.__value == other.__value
         return False
