@@ -3,7 +3,7 @@ import roman
 
 
 @pytest.mark.parametrize(
-    "good_numeral, expected", 
+    "good_numeral, expected",
     [
         # single numerals
         ('I',     1),
@@ -37,8 +37,6 @@ import roman
         ('MMMDCCIII', 3703),
     ]
 )
-
-
 def test_good_numeral(good_numeral, expected):
     assert roman.Numeral(good_numeral) == expected
 
@@ -64,8 +62,6 @@ def test_good_numeral(good_numeral, expected):
         ('IL',   'increasing value I[L]'),
     ]
 )
-    
-
 def test_bad_numeral(bad_numeral, expected):
     with pytest.raises(ValueError) as err:
         roman.Numeral(bad_numeral)
