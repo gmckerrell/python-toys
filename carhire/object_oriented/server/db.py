@@ -16,7 +16,7 @@ class WhereExpression:
                 )
             else:
                 unknown_criteria.append(key)
-            
+
         if unknown_criteria:
             raise KeyError(
                 f"Unknown search criteria: {', '.join(unknown_criteria)}",
@@ -35,8 +35,8 @@ class WhereExpression:
 
 
 class CarHire:
-    def __init__(self, con):
-        self.con = con
+    def __init__(self, conn):
+        self.conn = conn
 
     def cursor(self):
         def factory(cursor, row):
@@ -48,16 +48,16 @@ class CarHire:
             for idx, entry in enumerate(cursor.description):
                 col = entry[0]
                 d[col] = row[idx]
-            return d            
-            
-        c             = self.con.cursor()
+            return d
+
+        c             = self.conn.cursor()
         c.row_factory = factory
         return c
-        
+
     def initialise(self):
         print("Initialising database")
         # create the tables in the database
-        with self.con:
+        with self.conn:
             c = self.cursor()
             c.executescript(
                 """
@@ -112,7 +112,7 @@ class CarHire:
                     ("Betty Rubble", "11-09-2020", "20-10-2020", 1),
                 )
             )
-        
+
     def find_models(self, **criteria):
         where_expression = WhereExpression(
             {
@@ -121,7 +121,7 @@ class CarHire:
             },
             criteria
         )
-        with self.con:
+        with self.conn:
             c = self.cursor()
             c.execute(
                 f"""
@@ -145,7 +145,7 @@ class CarHire:
             },
             criteria
         )
-        with self.con:
+        with self.conn:
             c = self.cursor()
             c.execute(
                 f"""
@@ -164,7 +164,7 @@ class CarHire:
                 where_expression.values
             )
             return c.fetchall()
-        
+
     def find_bookings(self, **criteria):
         where_expression = WhereExpression(
             {
@@ -177,7 +177,7 @@ class CarHire:
             },
             criteria
         )
-        with self.con:
+        with self.conn:
             c = self.cursor()
             c.execute(
                 f"""
@@ -204,13 +204,13 @@ class CarHire:
 
 if __name__ == "__main__":
     import os
-    
+
     dbpath = "carhire.db"
     first_time = not os.path.exists(dbpath)
-    con = sqlite3.connect(dbpath)
-    
-    car_hire = CarHire(con)
-    
+    conn = sqlite3.connnect(dbpath)
+
+    car_hire = CarHire(conn)
+
     if first_time:
         car_hire.initialise()
 
@@ -234,5 +234,5 @@ if __name__ == "__main__":
     for booking in car_hire.find_bookings(customer = "Fred Flintstone"):
         print(booking)
 
-    con.close()
+    conn.close()
 

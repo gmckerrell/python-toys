@@ -37,11 +37,11 @@ def create_where_expression(mapping, criteria):
     else:
         return "", tuple()
 
-def initialise(con):
+def initialise(conn):
     print("Initialising database")
     # create the tables in the database
-    with con:
-        c = con.cursor()
+    with conn:
+        c = conn.cursor()
         c.executescript(
             """
             CREATE TABLE models (
@@ -96,7 +96,7 @@ def initialise(con):
             )
         )
     
-def find_models(con, **criteria):
+def find_models(conn, **criteria):
     where_expression, where_args = create_where_expression(
         {
             "name":         "models.name LIKE ?",
@@ -104,8 +104,8 @@ def find_models(con, **criteria):
         },
         criteria
     )
-    with con:
-        c = con.cursor()
+    with conn:
+        c = conn.cursor()
         c.row_factory = dict_row_factory
         c.execute(
             f"""
@@ -122,15 +122,15 @@ def find_models(con, **criteria):
         )
         return c.fetchall()
 
-def find_cars(con, **criteria):
+def find_cars(conn, **criteria):
     where_expression, where_args = create_where_expression(
             {
                 "model": "models.name = ?"
             },
             criteria
         )
-    with con:
-        c = con.cursor()
+    with conn:
+        c = conn.cursor()
         c.row_factory = dict_row_factory
         c.execute(
             f"""
@@ -150,7 +150,7 @@ def find_cars(con, **criteria):
         )
         return c.fetchall()
     
-def find_bookings(con, **criteria):
+def find_bookings(conn, **criteria):
     where_expression, where_args = create_where_expression(
         {
             "booking_id":   "booking_id        =    ?",
@@ -162,8 +162,8 @@ def find_bookings(con, **criteria):
         },
         criteria
     )
-    with con:
-        c = con.cursor()
+    with conn:
+        c = conn.cursor()
         c.row_factory = dict_row_factory
         c.execute(
             f"""
@@ -193,30 +193,30 @@ if __name__ == "__main__":
     
     dbpath = "carhire.db"
     first_time = not os.path.exists(dbpath)
-    con = sqlite3.connect(dbpath)
+    conn = sqlite3.connnect(dbpath)
     
     if first_time:
-        initialise(con)
+        initialise(conn)
 
     print("ALL MODELS")
-    for model in find_models(con):
+    for model in find_models(conn):
         print(model)
 
     print("ALL CARS")
-    for car in find_cars(con):
+    for car in find_cars(conn):
         print(car)
 
     print("findByModelName")
-    for car in find_cars(con, model_name = "mini"):
+    for car in find_cars(conn, model_name = "mini"):
         print(car)
 
     print("ALL BOOKINGS")
-    for booking in find_bookings(con):
+    for booking in find_bookings(conn):
         print(booking)
 
     print("findByCustomer")
-    for booking in find_bookings(con, customer = "Fred Flintstone"):
+    for booking in find_bookings(conn, customer = "Fred Flintstone"):
         print(booking)
 
-    con.close()
+    conn.close()
 
