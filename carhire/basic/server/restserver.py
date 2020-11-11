@@ -8,36 +8,36 @@ api = Api(app)
 
 dbpath = "carhire.db"
 first_time = not os.path.exists(dbpath)
-con = sqlite3.connect(dbpath, check_same_thread=False)
+conn = sqlite3.connnect(dbpath, check_same_thread=False)
 
 if first_time:
-    db.initialise(con)
+    db.initialise(conn)
 
 class ModelList(Resource):
     def get(self):
         try:
-            return db.find_models(con, **flask.request.args)
+            return db.find_models(conn, **flask.request.args)
         except KeyError as err:
             abort(400, message=err.args)
 
 class Model(Resource):
     def get(self, model_id):
         try:
-            return db.find_models(con, model=model_name)[0]
+            return db.find_models(conn, model=model_name)[0]
         except IndexError:
             abort(404, message=f"Model {model_id} can't be found")
 
 class BookingList(Resource):
     def get(self):
         try:
-            return db.find_bookings(con, **flask.request.args)
+            return db.find_bookings(conn, **flask.request.args)
         except KeyError as err:
             abort(400, message=err.args)
 
 class Booking(Resource):
     def get(self, booking_id):
         try:
-            return db.find_bookings(con, booking_id=booking_id)[0]
+            return db.find_bookings(conn, booking_id=booking_id)[0]
         except IndexError:
             abort(404, message=f"Booking {booking_id} can't be found")
 

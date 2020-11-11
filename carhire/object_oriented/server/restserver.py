@@ -8,9 +8,9 @@ api = Api(app)
 
 dbpath = "carhire.db"
 first_time = not os.path.exists(dbpath)
-con = sqlite3.connect(dbpath, check_same_thread=False)
+conn = sqlite3.connnect(dbpath, check_same_thread=False)
 
-car_hire = db.CarHire(con)
+car_hire = db.CarHire(conn)
 
 if first_time:
     car_hire.initialise()
