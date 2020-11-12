@@ -12,10 +12,13 @@ This installs the python packages that the [`server/server.py`](server/server.py
 
 ## Client
 The client code provides the same functions as the db interface, but the implementation talks to the remote web service (if running) to perform the tasks rather than to a local database.
+### Prerequisites
+`python -m pip install requests`
 
+This installs the python packages that the [`client/client.py`](client/client.py) code uses to perform REST requests.
 
-NB. you can also query the web service yourself from a browser.
-e.g.
+## From a Browser
+You can also query the web service yourself from a browser.
 ### retrieve list of all models
 [`http://localhost:5000/model`](http://localhost:5000/model)
 
@@ -37,8 +40,4 @@ e.g.
 ### bookings with a customer name containing 'rub'
 [`http://localhost:5000/booking?customer=%rub%`](http://localhost:5000/booking?customer=%rub%)
 
-### Prerequisites
-`python -m pip install requests`
-
-This installs the python packages that the [`client/client.py`](client/client.py) code uses to perform REST requests.
 
