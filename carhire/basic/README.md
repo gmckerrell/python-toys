@@ -34,7 +34,8 @@ e.g.
 ### find all bookings of 'mini'
 [`http://localhost:5000/booking?model=mini`](http://localhost:5000/booking?model=mini)
 
-localhost:5000/booking?customer=%FLint%
+### bookings with a customer name containing 'rub'
+[`http://localhost:5000/booking?customer=%rub%`](http://localhost:5000/booking?customer=%rub%)
 
 ### Prerequisites
 `python -m pip install requests`
