@@ -5,10 +5,14 @@ This version tries to avoid using too much object oriented code; keeping to more
 The server code provides a RESTful web service for the access and manipulation of the resources associated with the carhire database.
 [`server/db.py`](server/db.py) provides the core database access and control, exposing the various actions as functions within the `db` module.
 
+_Running this python module by itself will drop, create and fill out some default values for the database._
+
 ### Prerequisites
 `python -m pip install flask_restful`
 
 This installs the python packages that the [`server/server.py`](server/server.py) code uses to provide the web service.
+
+_NB. You will need to have created the carhire.db database before running this._ (see above)
 
 ## Client
 The client code provides similar functions as the db interface, but the implementation talks to the remote web service (if running) to perform the tasks rather than to a local database.
