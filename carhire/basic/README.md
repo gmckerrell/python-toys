@@ -16,6 +16,7 @@ _NB. You will need to have created the carhire.db database before running this._
 
 ## Client
 The client code provides similar functions as the db interface, but the implementation talks to the remote web service (if running) to perform the tasks rather than to a local database.
+
 ### Prerequisites
 `python -m pip install requests`
 
@@ -23,6 +24,7 @@ This installs the python packages that the [`client/client.py`](client/client.py
 
 ## From a Browser
 You can also query the web service yourself from a browser.
+
 ### retrieve list of all models
 [`http://localhost:5000/model`](http://localhost:5000/model)
 
