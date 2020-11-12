@@ -11,10 +11,10 @@ def get_json(url, query_dict):
     else:
         raise requests.exceptions.RequestException(
             {
-                "url":    url,
-                "params": params,
-                "status": response.status_code,
-                "body":   response.text
+                "url":          url,
+                "query_params": query_dict,
+                "status":       response.status_code,
+                "body":         response.text
             }
         )
 
