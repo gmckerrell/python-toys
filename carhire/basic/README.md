@@ -46,4 +46,7 @@ You can also query the web service yourself from a browser.
 ### bookings with a customer name containing 'rub'
 [`http://localhost:5000/booking?customer=%rub%`](http://localhost:5000/booking?customer=%rub%)
 
+# Simple javascript retrieval
 
+
+[`http://localhost:5000/static/carhire.html](http://localhost:5000/static/carhire.html)
