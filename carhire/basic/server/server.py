@@ -81,28 +81,28 @@ class CarCollection(DbResourceCollection):
 class Car(DbResource):
     
     def handle_get(self, id):
-        db.find_cars(conn, id=id)[0]
+        return db.find_cars(conn, id=id)[0]
 
     def handle_delete(self, id):
-        db.delete_car(conn, id)
+        return db.delete_car(conn, id)
 
 
 class BookingCollection(DbResourceCollection):
 
     def handle_get(self, query_dict):
-        db.find_bookings(conn, **query_dict)
+        return db.find_bookings(conn, **query_dict)
 
     def handle_post(self, body_dict):
-        db.create_booking(conn, **body_dict)
+        return db.create_booking(conn, **body_dict)
 
 
 class Booking(DbResource):
     
     def handle_get(self, id):
-        db.find_bookings(conn, id=id)[0]
+        return db.find_bookings(conn, id=id)[0]
 
     def handle_delete(self, id):
-        db.delete_booking(conn, id)
+        return db.delete_booking(conn, id)
 
 
 api.add_resource(ModelCollection,   '/model', '/model/')

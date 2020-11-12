@@ -155,7 +155,7 @@ def find_cars(conn, **criteria):
                 cars.registration,
                 cars.color,
                 models.manufacturer,
-                models.name          as model,
+                models.name          AS model,
                 models.people,
                 models.luggage
             FROM cars
