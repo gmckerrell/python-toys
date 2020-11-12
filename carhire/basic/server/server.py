@@ -1,17 +1,12 @@
-import sqlite3, os, json
+import sqlite3
 import flask
-from flask_restful import reqparse, abort, Api, Resource, reqparse
+from flask_restful import abort, Api, Resource
 import db
 
 app = flask.Flask(__name__)
 api = Api(app)
 
-dbpath = "carhire.db"
-first_time = not os.path.exists(dbpath)
-conn = sqlite3.connect(dbpath, check_same_thread=False)
-
-if first_time:
-    db.initialise(conn)
+conn = sqlite3.connect("carhire.db", check_same_thread=False)
 
 class DbResourceCollection(Resource):
     """
