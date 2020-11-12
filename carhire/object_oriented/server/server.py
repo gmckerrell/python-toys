@@ -25,7 +25,7 @@ class ModelList(Resource):
 class Model(Resource):
     def get(self, model_id):
         try:
-            return car_hire.find_models(model=model_name)[0]
+            return car_hire.find_models(id=model_id)[0]
         except IndexError:
             abort(404, message=f"Model {model_id} can't be found")
 
