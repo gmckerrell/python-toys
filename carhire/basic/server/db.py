@@ -1,5 +1,6 @@
-import sqlite3
-
+"""
+This module provides database utility functions for the car hire database
+"""
 def dict_row_factory(cursor, row):
     """
     This method is used to put the SQL results into an easily readable
@@ -25,7 +26,7 @@ def create_where_expression(mapping, criteria):
             )
         else:
             unknown_criteria.append(key)
-        
+
     if unknown_criteria:
         raise KeyError(
             f"Unknown search criteria: {', '.join(unknown_criteria)}",
@@ -45,62 +46,42 @@ def initialise(conn):
         c.executescript(
             """
             CREATE TABLE models (
-                id            INTEGER PRIMARY KEY,
-                name          TEXT    NOT NULL,
-                manufacturer  TEXT    NOT NULL,
-                luggage       INTEGER NOT NULL,
-                people        INTEGER NOT NULL
+                id            INTEGER PRIMARY KEY AUTOINCREMENT,
+                name          TEXT    UNIQUE      NOT NULL,
+                manufacturer  TEXT                NOT NULL,
+                luggage       INTEGER             NOT NULL,
+                people        INTEGER             NOT NULL
             );
             CREATE TABLE cars (
-                id           INTEGER PRIMARY KEY,
-                registration TEXT    NOT NULL,
-                model_id     INTEGER NOT NULL,
+                id           INTEGER PRIMARY KEY  AUTOINCREMENT,
+                registration TEXT    UNIQUE       NOT NULL,
+                color        TEXT                 NOT NULL,
+                model_id     INTEGER              NOT NULL,
                 FOREIGN KEY (model_id)
                     REFERENCES models (id)
                         ON DELETE RESTRICT
             );
             CREATE TABLE bookings (
                 id         INTEGER PRIMARY KEY AUTOINCREMENT,
-                customer   TEXT    NOT NULL,
-                start_date DATE    NOT NULL,
-                end_date   DATE    NOT NULL,
-                car_id     INTEGER NOT NULL,
+                customer   TEXT                NOT NULL,
+                start_date DATE                NOT NULL,
+                end_date   DATE                NOT NULL,
+                car_id     INTEGER             NOT NULL,
                 FOREIGN KEY (car_id)
                     REFERENCES cars (id)
                         ON DELETE RESTRICT
             );
             """
         )
-        c.executemany(
-            "INSERT INTO models VALUES(?,?,?,?,?)",
-            (
-                (1, "s-max", "Ford", 4, 5),
-                (2, "mini", "BMW",   2, 4),
-            )
-        )
-        c.executemany(
-            "INSERT INTO cars VALUES(?,?,?)",
-            (
-                (1, "ABC 123", 1),
-                (2, "ABC 456", 1),
-                (3, "M1N1 1",  2),
-                (4, "M1N1 2",  2),
-            )
-        )
-        c.executemany(
-            "INSERT INTO bookings (customer, start_date, end_date, car_id) VALUES(?,?,?,?)",
-            (
-                ("Fred Flintstone", "11-09-2020", "12-09-2020", 3),
-                ("Barney Rubble", "11-09-2020", "20-10-2020", 2),
-                ("Betty Rubble", "11-09-2020", "20-10-2020", 1),
-            )
-        )
-    
+
 def find_models(conn, **criteria):
     where_expression, where_args = create_where_expression(
         {
-            "name":         "models.name LIKE ?",
-            "manufacturer": "models.manufacturer LIKE ?"
+            "id":           "id           =    ?",
+            "name":         "name         LIKE ?",
+            "manufacturer": "manufacturer LIKE ?",
+            "people":       "people       =    ?",
+            "luggage":      "luggage      =    ?",
         },
         criteria
     )
@@ -111,8 +92,8 @@ def find_models(conn, **criteria):
             f"""
             SELECT
                 models.id,
-                models.manufacturer,
                 models.name,
+                models.manufacturer,
                 models.people,
                 models.luggage
             FROM models
@@ -122,10 +103,26 @@ def find_models(conn, **criteria):
         )
         return c.fetchall()
 
+def create_model(conn, name, manufacturer, people, luggage):
+
+    with conn:
+        c = conn.cursor()
+        c.row_factory = dict_row_factory
+        c.execute(
+            """
+            INSERT INTO models (name, manufacturer, people, luggage) VALUES(?,?,?,?)
+            """,
+            (name, manufacturer, people, luggage)
+        )
+    return find_models(conn, name=name)[0]
+
 def find_cars(conn, **criteria):
     where_expression, where_args = create_where_expression(
             {
-                "model": "models.name = ?"
+                "id":           "cars.id      =    ?",
+                "registration": "registration LIKE ?",
+                "model":        "models.name  LIKE ?",
+                "color":        "color        =    ?",
             },
             criteria
         )
@@ -137,8 +134,9 @@ def find_cars(conn, **criteria):
             SELECT
                 cars.id,
                 cars.registration,
+                cars.color,
                 models.manufacturer,
-                models.name,
+                models.name          as model,
                 models.people,
                 models.luggage
             FROM cars
@@ -149,16 +147,31 @@ def find_cars(conn, **criteria):
             where_args
         )
         return c.fetchall()
-    
+
+def create_car(conn, model, registration, color):
+
+    model = find_models(conn, name=model)[0]
+
+    with conn:
+        c = conn.cursor()
+        c.row_factory = dict_row_factory
+        c.execute(
+            """
+            INSERT INTO cars (model_id, registration,color) VALUES(?,?,?)
+            """,
+            (model['id'], registration, color)
+        )
+    return find_cars(conn, registration=registration)[0]
+
 def find_bookings(conn, **criteria):
     where_expression, where_args = create_where_expression(
         {
-            "booking_id":   "booking_id        =    ?",
-            "customer":     "bookings.customer LIKE ?",
-            "manufacturer": "models.manufacturer       LIKE ?",
-            "model":        "models.name       LIKE ?",
-            "people":       "models.people     >=   ?",
-            "luggage":      "models.luggage    >=   ?"
+            "id":           "bookings.id         =    ?",
+            "customer":     "customer            LIKE ?",
+            "manufacturer": "models.manufacturer LIKE ?",
+            "model":        "models.name         LIKE ?",
+            "people":       "models.people       >=   ?",
+            "luggage":      "models.luggage      >=   ?",
         },
         criteria
     )
@@ -168,12 +181,12 @@ def find_bookings(conn, **criteria):
         c.execute(
             f"""
             SELECT
-                bookings.id                AS booking_id,
+                bookings.id,
                 bookings.customer,
                 bookings.start_date,
                 bookings.end_date,
                 models.manufacturer,
-                models.name                AS model,
+                models.name          AS model,
                 models.people,
                 models.luggage,
                 cars.registration
@@ -188,15 +201,46 @@ def find_bookings(conn, **criteria):
         )
         return c.fetchall()
 
+def create_booking(conn, start_date, end_date, customer, **criteria):
+
+    car = find_cars(conn, **criteria)[0] # take the first one for now
+
+    with conn:
+        c = conn.cursor()
+        c.row_factory = dict_row_factory
+        c.execute(
+            """
+            INSERT INTO bookings (start_date, end_date, customer, car_id) VALUES(?,?,?,?)
+            """,
+            (start_date, end_date, customer, car['id'])
+        )
+        booking_id = c.lastrowid
+
+    return find_bookings(conn, booking_id=booking_id)[0]
+
 if __name__ == "__main__":
     import os
-    
+    import sqlite3
+
     dbpath = "carhire.db"
     first_time = not os.path.exists(dbpath)
-    conn = sqlite3.connnect(dbpath)
-    
+    conn = sqlite3.connect("carhire.db")
+
     if first_time:
         initialise(conn)
+
+        create_model(conn, name = "s-max", manufacturer="Ford", people=5, luggage=5)
+        create_model(conn, name = "mini", manufacturer="BMW", people=4, luggage=2)
+
+        create_car(conn, model="s-max", registration="ABC 123", color="red")
+        create_car(conn, model="s-max", registration="ABC 456", color="blue")
+        create_car(conn, model="mini",  registration="M1N1 2",  color="black")
+        create_car(conn, model="mini",  registration="M1N1 1",  color="silver")
+
+        create_booking(conn, start_date="11-09-2020", end_date="12-09-2020", customer="Fred Flintstone", model="mini")
+        create_booking(conn, start_date="13-09-2020", end_date="15-09-2020", customer="Wilma Flintstone", model="mini")
+        create_booking(conn, start_date="11-09-2020", end_date="12-09-2020", customer="Barney Rubble", model="s-max")
+        create_booking(conn, start_date="13-09-2020", end_date="15-09-2020", customer="Betty Rubble", model="s-max")
 
     print("ALL MODELS")
     for model in find_models(conn):
@@ -207,7 +251,7 @@ if __name__ == "__main__":
         print(car)
 
     print("findByModelName")
-    for car in find_cars(conn, model_name = "mini"):
+    for car in find_cars(conn, model = "mini"):
         print(car)
 
     print("ALL BOOKINGS")
