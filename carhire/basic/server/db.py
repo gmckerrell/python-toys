@@ -1,6 +1,8 @@
 """
 This module provides database utility functions for the car hire database
 """
+import sqlite3
+
 def dict_row_factory(cursor, row):
     """
     This method is used to put the SQL results into an easily readable
@@ -45,6 +47,7 @@ def initialise(conn):
         c = conn.cursor()
         c.executescript(
             """
+            DROP TABLE IF EXISTS models;
             CREATE TABLE models (
                 id            INTEGER PRIMARY KEY AUTOINCREMENT,
                 name          TEXT    UNIQUE      NOT NULL,
@@ -52,24 +55,26 @@ def initialise(conn):
                 luggage       INTEGER             NOT NULL,
                 people        INTEGER             NOT NULL
             );
+
+            DROP TABLE IF EXISTS cars;
             CREATE TABLE cars (
                 id           INTEGER PRIMARY KEY  AUTOINCREMENT,
                 registration TEXT    UNIQUE       NOT NULL,
                 color        TEXT                 NOT NULL,
                 model_id     INTEGER              NOT NULL,
-                FOREIGN KEY (model_id)
-                    REFERENCES models (id)
-                        ON DELETE RESTRICT
+                
+                FOREIGN KEY(model_id) REFERENCES models(id)
             );
+
+            DROP TABLE IF EXISTS bookings;
             CREATE TABLE bookings (
                 id         INTEGER PRIMARY KEY AUTOINCREMENT,
                 customer   TEXT                NOT NULL,
                 start_date DATE                NOT NULL,
                 end_date   DATE                NOT NULL,
                 car_id     INTEGER             NOT NULL,
-                FOREIGN KEY (car_id)
-                    REFERENCES cars (id)
-                        ON DELETE RESTRICT
+                
+                FOREIGN KEY(car_id) REFERENCES cars(id)
             );
             """
         )
@@ -104,17 +109,31 @@ def find_models(conn, **criteria):
         return c.fetchall()
 
 def create_model(conn, name, manufacturer, people, luggage):
+    with conn:
+        c = conn.cursor()
+        c.row_factory = dict_row_factory
+        try:
+            c.execute(
+                """
+                INSERT INTO models (name, manufacturer, people, luggage) VALUES(?,?,?,?)
+                """,
+                (name, manufacturer, people, luggage)
+            )
+        except sqlite3.IntegrityError as err:
+            raise ValueError(*err.args)
+    
+    return find_models(conn, name=name)[0]
 
+def delete_model(conn, id):
     with conn:
         c = conn.cursor()
         c.row_factory = dict_row_factory
         c.execute(
             """
-            INSERT INTO models (name, manufacturer, people, luggage) VALUES(?,?,?,?)
+            DELETE FROM models WHERE id = ?
             """,
-            (name, manufacturer, people, luggage)
+            (id,)
         )
-    return find_models(conn, name=name)[0]
 
 def find_cars(conn, **criteria):
     where_expression, where_args = create_where_expression(
@@ -163,6 +182,19 @@ def create_car(conn, model, registration, color):
         )
     return find_cars(conn, registration=registration)[0]
 
+
+def delete_car(conn, id):
+    with conn:
+        c = conn.cursor()
+        c.row_factory = dict_row_factory
+        c.execute(
+            """
+            DELETE FROM cars WHERE id = ?
+            """,
+            (id,)
+        )
+
+
 def find_bookings(conn, **criteria):
     where_expression, where_args = create_where_expression(
         {
@@ -201,6 +233,7 @@ def find_bookings(conn, **criteria):
         )
         return c.fetchall()
 
+
 def create_booking(conn, start_date, end_date, customer, **criteria):
 
     car = find_cars(conn, **criteria)[0] # take the first one for now
@@ -216,31 +249,40 @@ def create_booking(conn, start_date, end_date, customer, **criteria):
         )
         booking_id = c.lastrowid
 
-    return find_bookings(conn, booking_id=booking_id)[0]
+    return find_bookings(conn, id=booking_id)[0]
+
+
+def delete_booking(conn, id):
+    with conn:
+        c = conn.cursor()
+        c.row_factory = dict_row_factory
+        c.execute(
+            """
+            DELETE FROM bookings WHERE id = ?
+            """,
+            (id,)
+        )
+
 
 if __name__ == "__main__":
     import os
-    import sqlite3
 
-    dbpath = "carhire.db"
-    first_time = not os.path.exists(dbpath)
     conn = sqlite3.connect("carhire.db")
 
-    if first_time:
-        initialise(conn)
+    initialise(conn)
 
-        create_model(conn, name = "s-max", manufacturer="Ford", people=5, luggage=5)
-        create_model(conn, name = "mini", manufacturer="BMW", people=4, luggage=2)
+    create_model(conn, name = "s-max", manufacturer="Ford", people=5, luggage=5)
+    create_model(conn, name = "mini", manufacturer="BMW", people=4, luggage=2)
 
-        create_car(conn, model="s-max", registration="ABC 123", color="red")
-        create_car(conn, model="s-max", registration="ABC 456", color="blue")
-        create_car(conn, model="mini",  registration="M1N1 2",  color="black")
-        create_car(conn, model="mini",  registration="M1N1 1",  color="silver")
+    create_car(conn, model="s-max", registration="ABC 123", color="red")
+    create_car(conn, model="s-max", registration="ABC 456", color="blue")
+    create_car(conn, model="mini",  registration="M1N1 2",  color="black")
+    create_car(conn, model="mini",  registration="M1N1 1",  color="silver")
 
-        create_booking(conn, start_date="11-09-2020", end_date="12-09-2020", customer="Fred Flintstone", model="mini")
-        create_booking(conn, start_date="13-09-2020", end_date="15-09-2020", customer="Wilma Flintstone", model="mini")
-        create_booking(conn, start_date="11-09-2020", end_date="12-09-2020", customer="Barney Rubble", model="s-max")
-        create_booking(conn, start_date="13-09-2020", end_date="15-09-2020", customer="Betty Rubble", model="s-max")
+    create_booking(conn, start_date="11-09-2020", end_date="12-09-2020", customer="Fred Flintstone", model="mini")
+    create_booking(conn, start_date="13-09-2020", end_date="15-09-2020", customer="Wilma Flintstone", model="mini")
+    create_booking(conn, start_date="11-09-2020", end_date="12-09-2020", customer="Barney Rubble", model="s-max")
+    create_booking(conn, start_date="13-09-2020", end_date="15-09-2020", customer="Betty Rubble", model="s-max")
 
     print("ALL MODELS")
     for model in find_models(conn):
