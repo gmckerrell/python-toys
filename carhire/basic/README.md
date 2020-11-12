@@ -11,7 +11,7 @@ The server code provides a RESTful web service for the access and manipulation o
 This installs the python packages that the [`server/server.py`](server/server.py) code uses to provide the web service.
 
 ## Client
-The client code provides the same functions as the db interface, but the implementation talks to the remote web service (if running) to perform the tasks rather than to a local database.
+The client code provides similar functions as the db interface, but the implementation talks to the remote web service (if running) to perform the tasks rather than to a local database.
 ### Prerequisites
 `python -m pip install requests`
 
