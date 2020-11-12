@@ -25,8 +25,14 @@ e.g.
 ### retrieve list of all bookings
 [`http://localhost:5000/booking`](http://localhost:5000/booking)
 
-### retrieve list of all bookings with red cars
+### retrieve list of all red cars
 [`http://localhost:5000/booking?color=red`](http://localhost:5000/booking?color=red)
+
+### find specific booking
+[`http://localhost:5000/booking/3`](http://localhost:5000/booking/3)
+
+### find all bookings of 'mini'
+[`http://localhost:5000/booking?model=mini`](http://localhost:5000/booking?model=mini)
 
 localhost:5000/booking?customer=%FLint%
 
