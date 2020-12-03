@@ -1,4 +1,5 @@
-""" This problem was asked by Amazon.
+"""
+This problem was asked by Amazon.
 
 At a popular bar, each customer has a set of favorite drinks,
 and will happily accept any drink among this set.
