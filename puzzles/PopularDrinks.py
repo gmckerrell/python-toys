@@ -1,5 +1,4 @@
-"""
-This problem was asked by Amazon.
+""" This problem was asked by Amazon.
 
 At a popular bar, each customer has a set of favorite drinks,
 and will happily accept any drink among this set.
@@ -173,6 +172,6 @@ if __name__ == "__main__":
                     (1, [0, 1]) 
                 ]
             )
-            
+ 
     # run the tests
     unittest.main(verbosity=2)
