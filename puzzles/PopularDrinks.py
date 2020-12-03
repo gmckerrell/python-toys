@@ -175,4 +175,4 @@ if __name__ == "__main__":
             )
             
     # run the tests
-    unittest.main()
+    unittest.main(verbosity=2)
