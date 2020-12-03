@@ -68,7 +68,7 @@ def drink_popularity_weighting(drink_details):
     (DRINK_1, [PERSON_1, PERSON_2,...])
     and returns a number representing the "weighting" of the entry.
     The weighting for a drink is defined as
-    
+
     NUMBER_OF_PEOPLE * 100 + DRINK_NUMBER
 
     We use the drink number as a tie-break for drinks that
@@ -116,7 +116,7 @@ if __name__ == "__main__":
                 3: [3, 2, 5],
                 4: [5, 8]
             }
-        
+
         def test_drinks_from_preferences(self):
             self.assertEqual(
                 drinks_from_preferences(self._preferences),
@@ -132,7 +132,7 @@ if __name__ == "__main__":
                     8: [4]
                 }
             )
-            
+
         def test_drink_popularity_weighting(self):
             self.assertEqual(
                 drink_popularity_weighting(
@@ -173,6 +173,6 @@ if __name__ == "__main__":
                     (1, [0, 1]) 
                 ]
             )
- 
+
     # run the tests
     unittest.main(verbosity=2)
