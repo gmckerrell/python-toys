@@ -30,7 +30,12 @@ def required_drinks(preferences):
         ...
     }
     and returns the minimum list of required drinks needed to satisfy all the
-    customers.
+    customers in the following format
+    [
+        (DRINK_1, [PERSON_1, PERSON_2, ...]),
+        (...),
+        ...
+    ]
     """
     # take a working copy
     outstanding_preferences = dict(preferences)
