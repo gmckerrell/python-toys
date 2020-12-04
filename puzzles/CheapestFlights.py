@@ -55,8 +55,8 @@ def find_routes(source, destination, max_connections):
     )
     result = []
     for route in all_routes:
-        hops = len(route[0]) - 2
-        if (hops <= max_connections):
+        connections = len(route[0]) - 2
+        if (connections <= max_connections):
             result.append(route)
     return result
 
