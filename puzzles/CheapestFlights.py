@@ -64,7 +64,6 @@ def recursive_search(route, destination, cost):
     """
     route       - a list of connections
     destination - the final destination
-    hops        - the number of remaining connections to search
     cost        - the current cost of this route
 
     Will return a list of tuples of the following format
