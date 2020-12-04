@@ -52,7 +52,7 @@ def most_popular_drink(preferences):
         ...
     }
     and identifies the most popular drink returning it as a tuple of the form
-    (DRINK_1, (PERSON_1, PERSON_2, ...))
+    (DRINK_1, [PERSON_1, PERSON_2, ...])
     """
     return sorted(
         drinks_from_preferences(preferences).items(),
