@@ -37,6 +37,8 @@ CONNECTIONS = (
 def find_cheapest_route(source, destination, max_connections):
     """
     Returns the cheapest route that can be found for the constraints
+    
+    ([AIRPORT_1, AIRPORT_2...], TOTAL_COST)
     """
     return find_routes(source, destination, max_connections)[0]
 
@@ -45,8 +47,8 @@ def find_routes(source, destination, max_connections):
     returns a list of possible routes for the constraints in
     ascending price order
     [
-        ([AIRPORT_1, AIRPORT_2...], TOTAL_COST),
-        (...),
+        ([AIRPORT_1, AIRPORT_2, ...], TOTAL_COST_1),
+        ...
     ]
     """
     all_routes = sorted(
@@ -68,8 +70,7 @@ def recursive_search(route, destination, cost):
 
     Will return a list of tuples of the following format
     [
-        ([AIRPORT_1, AIRPORT_2, ...], cost),
-        (...),
+        ([AIRPORT_1, AIRPORT_2, ...], TOTAL_COST_1),
         ...
     ]
     each entry represents a possible route to the required destination
