@@ -39,7 +39,7 @@ def find_cheapest_route(source, destination, max_connections):
     Returns the cheapest route that can be found for the constraints
     """
     return find_routes(source, destination, max_connections)[0]
- 
+
 def find_routes(source, destination, max_connections):
     """
     returns a list of possible routes for the constraints in
