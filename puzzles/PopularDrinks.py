@@ -33,7 +33,6 @@ def required_drinks(preferences):
     customers in the following format
     [
         (DRINK_1, [PERSON_1, PERSON_2, ...]),
-        (DRINK_2, [...]),
         ...
     ]
     """
