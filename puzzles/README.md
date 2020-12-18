@@ -1,4 +1,7 @@
 # Puzzles
+This folder contains some interview based puzzles, for which I've tried to provide some "production quality" solutions.
+
+Each puzzle is split into a reusable, tested module (`PUZZLENAME.py`) and an example file  (`PUZZLENAME_example.py`) which provides the requested answers.
 
 ## PRODUCTION vs TEST code
 In general your production code should try and minimise duplicate code (DRY principal https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) and that is what I've strived to do in the body of these modules.
