@@ -11,7 +11,7 @@ It is also always a good idea to try and automate the testing of any code that y
 Unit-tests are intended to assert that the behaviour of the various functions/methods within a module/class are as designed. In fact there is a entire paradigm of development focused around writing those tests first (and expecting them to fail) and subsequently fleshing out the required behaviour to pass the test.
 https://en.wikipedia.org/wiki/Test-driven_development
 
-However when it comes to unit-tests it is *more* important that each individual test can be understood without the reader jumping back and forth through the code. It also means that each individual test can be changed (fixed) without impacting other tests. This means that unit-tests tend not to be a DRY as production code.
+However when it comes to unit-tests it is *more* important that each individual test can be understood without the reader jumping back and forth through the code. It also means that each individual test can be changed (fixed) without impacting other tests. This means that unit-tests tend not to be as DRY as production code.
 
 Here's a stack overflow discussion which talks about this
 https://stackoverflow.com/questions/6453235/what-does-damp-not-dry-mean-when-talking-about-unit-tests
