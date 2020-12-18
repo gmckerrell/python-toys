@@ -28,8 +28,11 @@ import CheapestFlights
 
 start       = "JFK"
 destination = "LAX"
-route       = CheapestFlights.find_cheapest_route(start, destination, 2)
+connections = 2
+route       = CheapestFlights.find_cheapest_route(start, destination, connections)
 
 print(
-  f"""Cheapest flight from {start} to {destination} costs ${route[1]}: {" --> ".join(route[0])}"""
+  f"""Cheapest flight from {start} to {destination} with {connections} connection(s) costs ${route[1]}
+  {" --> ".join(route[0])}
+  """
 )
