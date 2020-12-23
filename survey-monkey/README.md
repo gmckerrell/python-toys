@@ -40,9 +40,6 @@ Each `RESPONSE` element will be shaped according to the question type.
 - Multiple Choice
   - `{ "item1": [ONE, TWO, THREE], "item2": "HELLO" }`
   
-
-
-
 ## Example Code
 ```python
 import monkey
