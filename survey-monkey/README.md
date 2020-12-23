@@ -49,7 +49,7 @@ import json
 
 with monkey.Client(API_TOKEN, cache_file="monkey.json") as client:
     for survey in monkey.surveys(client):
-        questions = surveys[0].questions()
+        questions = survey.questions()
     
         print(survey.title)
         print(
