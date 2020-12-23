@@ -35,11 +35,12 @@ Each `RESPONSE` element will be shaped according to the question type.
   - "A_STRING_RESPONSE"
 - Single Choice
   - "CHOICE_NUMBER_TWO"
+- Multiple Selection
+  - `[ONE, TWO, THREE]`
 - Multiple Choice
+  - `{ "item1": [ONE, TWO, THREE], "item2": "HELLO" }`
+  
 
-
-- Firstly you need to create a `client` instance.
-- Then the `surveys()` function can be used to get a list of `Survey` objects.
 
 
 ## Example Code
