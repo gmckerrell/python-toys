@@ -32,9 +32,9 @@ The results will take the following format
 ```
 Each `RESPONSE` element will be shaped according to the question type.
 - Open ended
-  - "A_STRING_RESPONSE"
+  - `"A_STRING_RESPONSE"`
 - Single Choice
-  - "CHOICE_NUMBER_TWO"
+  - `"CHOICE_NUMBER_TWO"`
 - Multiple Selection
   - `[ONE, TWO, THREE]`
 - Multiple Choice
