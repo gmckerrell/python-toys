@@ -10,6 +10,10 @@ In order for this module to access survey results the following access scopes ne
 
 
 ## Usage
+You will need to install the [requests package](https://requests.readthedocs.io/en/master/)
+
+`$ pip install requests`
+
 ### `monkey.Client(API_TOKEN, [cache_file=FILENAME])`
 - low level client for accessing the API (used by the `Survey` class)
 - can specify a `cache_file` which is a file name in which retrieved API data can be stored. The REST API can limit the number of requests per-day, so this provides the means of caching results to avoid too many requests. When used in a [python `with` context](https://docs.python.org/3/whatsnew/2.6.html#pep-343-the-with-statement) any REST API responses will be written to the specified file on exit from the context. The next time the code runs it will read data from that cache file, before trying to call the REST API. This means that multiple (wasted) calls are avoided during development.
