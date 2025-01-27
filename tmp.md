@@ -1,7 +1,38 @@
 # REST API
 
-## Cars
-### GET a list of all cars
+The API provides details for the following entities
+`cars`, `customers`, `bookings`
+
+Which can be accessed under the `http:localhost:8080/api/{ENTITY}` URL
+## Entity Attributes
+### Cars
+```json
+{
+  "id": "d958b359-556a-4d80-b5ca-13dcf9461306",
+  "make": "audi",
+  "model": "a1",
+  "capacity": "5"
+}
+```
+### Customers
+```json
+{
+    "id": "14f4d38b-7789-4917-8cec-ddc6eebe648a",
+    "firstname": "jacob",
+    "surname": "mckerrell",
+    "email": "jacobmckerrell@gmail.com"
+  }
+```
+
+### Bookings
+```json
+{
+...
+}
+```
+
+## Some examples using cars
+### GET a list of entities
 ```sh
 curl "http://localhost:8080/api/cars" \
   -H "Accept: application/json"
@@ -29,9 +60,9 @@ curl "http://localhost:8080/api/cars" \
   }
 ]
 ```
-### GET a list of cars that satisfy search criteria
+### GET a list of entities that satisfy search criteria
 
-You can specify query parameters for any of the car attributes, to narrow the results.
+You can specify query parameters for any of the attributes, to narrow the results.
 ```sh
 curl "http://localhost:8080/api/cars?make=audi&capacity=5" \
   -H "Accept: application/json"
@@ -53,7 +84,7 @@ curl "http://localhost:8080/api/cars?make=audi&capacity=5" \
 ]
 ```
 
-### GET details for a specific car
+### GET details for a specific entity
 ```sh
 curl "http://localhost:8080/api/cars/d958b359-556a-4d80-b5ca-13dcf9461306" \
   -H "Accept: application/json"
@@ -66,3 +97,24 @@ curl "http://localhost:8080/api/cars/d958b359-556a-4d80-b5ca-13dcf9461306" \
   "capacity": "5"
 }
 ```
+## Entity attributes
+### Cars
+```json
+{
+  "id": "d958b359-556a-4d80-b5ca-13dcf9461306",
+  "make": "audi",
+  "model": "a1",
+  "capacity": "5"
+}
+```
+### Customers
+```json
+{
+    "id": "14f4d38b-7789-4917-8cec-ddc6eebe648a",
+    "firstname": "jacob",
+    "surname": "mckerrell",
+    "email": "jacobmckerrell@gmail.com"
+  }
+```
+
+### Bookings
