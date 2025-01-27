@@ -35,7 +35,7 @@ Which can be accessed under the `http:localhost:8080/api/{ENTITY}` URL
 ```
 
 ## Some examples using cars
-### GET a list of entities
+### A list of entities (GET)
 ```sh
 curl "http://localhost:8080/api/cars" \
   -H "Accept: application/json"
@@ -63,7 +63,7 @@ curl "http://localhost:8080/api/cars" \
   }
 ]
 ```
-### GET a list of entities that satisfy search criteria
+### A list of entities that satisfy search criteria (GET)
 
 You can specify query parameters for any of the attributes, to narrow the results.
 ```sh
@@ -87,7 +87,7 @@ curl "http://localhost:8080/api/cars?make=audi&capacity=5" \
 ]
 ```
 
-### GET details for a specific entity
+### Details for a specific entity (GET)
 ```sh
 curl "http://localhost:8080/api/cars/d958b359-556a-4d80-b5ca-13dcf9461306" \
   -H "Accept: application/json"
@@ -101,7 +101,7 @@ curl "http://localhost:8080/api/cars/d958b359-556a-4d80-b5ca-13dcf9461306" \
 }
 ```
 
-### Create a new entity
+### Create a new entity (POST)
 ```sh
 curl "http://localhost:8080/api/cars" \
   -H "ContentType: application/json" \
@@ -118,5 +118,22 @@ curl "http://localhost:8080/api/cars" \
   "make": "audi",
   "model": "new-a1",
   "capacity": "3"
+}
+```
+### Update an existing entity (PATCH)
+```sh
+curl -X PATCH "http://localhost:8080/api/cars/bda3d38e-a9f3-4072-b4e6-12c476a99709" \
+  -H "ContentType: application/json" \
+  -H "Accept: application/json" \
+  -d '{
+     "capacity": "4"
+   }'
+```
+```json
+{
+  "id": "bda3d38e-a9f3-4072-b4e6-12c476a99709",
+  "make": "audi",
+  "model": "new-a1",
+  "capacity": "4"
 }
 ```
