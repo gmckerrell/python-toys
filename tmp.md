@@ -70,6 +70,7 @@ You can specify query parameters for any of the attributes, to narrow the result
 curl "http://localhost:8080/api/cars?make=audi&capacity=5" \
   -H "Accept: application/json"
 ```
+`200 OK`
 ```json
 [
   {
@@ -92,6 +93,7 @@ curl "http://localhost:8080/api/cars?make=audi&capacity=5" \
 curl "http://localhost:8080/api/cars/d958b359-556a-4d80-b5ca-13dcf9461306" \
   -H "Accept: application/json"
 ```
+`200 OK`
 ```json
 {
   "id": "d958b359-556a-4d80-b5ca-13dcf9461306",
@@ -100,6 +102,7 @@ curl "http://localhost:8080/api/cars/d958b359-556a-4d80-b5ca-13dcf9461306" \
   "capacity": "5"
 }
 ```
+`404 Not Found` if entity ID does not exist
 
 ### Create a new entity (POST)
 ```sh
@@ -137,3 +140,11 @@ curl -X PATCH "http://localhost:8080/api/cars/bda3d38e-a9f3-4072-b4e6-12c476a997
   "capacity": "4"
 }
 ```
+
+### Remove an entity (DELETE)
+```sh
+curl -X DELETE "http://localhost:8080/api/cars/bda3d38e-a9f3-4072-b4e6-12c476a99709" \
+  -H "Accept: application/json"
+```
+`201 No Content`
+or `404 Not Found` if entity does not exist
