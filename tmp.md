@@ -27,7 +27,10 @@ Which can be accessed under the `http:localhost:8080/api/{ENTITY}` URL
 ### Bookings
 ```json
 {
-...
+    "id": "0e7752a7-283c-49d2-a29e-40485a8478ed",
+    "customerid": "83feda52-8725-4b76-bf7d-b040141882f9",
+    "carid": "73d77597-87bd-47be-939d-56781f55fa05",
+    "date": "2025-01-28"
 }
 ```
 
@@ -97,24 +100,5 @@ curl "http://localhost:8080/api/cars/d958b359-556a-4d80-b5ca-13dcf9461306" \
   "capacity": "5"
 }
 ```
-## Entity attributes
-### Cars
-```json
-{
-  "id": "d958b359-556a-4d80-b5ca-13dcf9461306",
-  "make": "audi",
-  "model": "a1",
-  "capacity": "5"
-}
-```
-### Customers
-```json
-{
-    "id": "14f4d38b-7789-4917-8cec-ddc6eebe648a",
-    "firstname": "jacob",
-    "surname": "mckerrell",
-    "email": "jacobmckerrell@gmail.com"
-  }
-```
 
-### Bookings
+### Create a new entity
