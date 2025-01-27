@@ -102,3 +102,21 @@ curl "http://localhost:8080/api/cars/d958b359-556a-4d80-b5ca-13dcf9461306" \
 ```
 
 ### Create a new entity
+```sh
+curl "http://localhost:8080/api/cars" \
+  -H "ContentType: application/json" \
+  -H "Accept: application/json" \
+  -d '{
+     "make": "audi",
+     "model": "new-a1",
+     "capacity": "3"
+   }'
+```
+```json
+{
+  "id": "bda3d38e-a9f3-4072-b4e6-12c476a99709",
+  "make": "audi",
+  "model": "new-a1",
+  "capacity": "3"
+}
+```
